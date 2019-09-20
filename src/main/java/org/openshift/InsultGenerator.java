@@ -21,13 +21,14 @@ public class InsultGenerator {
         ResultSet rs = stmt.executeQuery(SQL);
         while (rs.next()) {
           if (vowels.indexOf(rs.getString("first").charAt(0)) == -1) {
-          article = "a";
+            article = "a";
+          }
+          theInsult = String.format("Thou art %s %s %s %s!", article,
+          rs.getString("first"), rs.getString("second"), rs.getString("noun"));
         }
-        theInsult = String.format("Thou art %s %s %s %s!", article,
-        rs.getString("first"), rs.getString("second"), rs.getString("noun"));
+        rs.close();
+        connection.close();
       }
-      rs.close();
-      connection.close();
     } catch (Exception e) {
       return "Database connection problem!";
     }
